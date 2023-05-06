@@ -101,4 +101,69 @@ public class ProductTest {
         product.setTimesPurchased(2);
         assertEquals(2, product.getTimesPurchased());
     }
+
+    @Test
+    public void increaseProductQuantity(){
+        setup1();
+        inventory.addProduct(product);
+
+        List<Product> products = inventory.searchProduct("Test Product");
+        int quantity=10;
+
+
+        products.get(0).setQuantity(products.get(0).getQuantity()+quantity);
+
+        assertEquals(20, product.getQuantity());
+    }
+
+    @Test
+    public void increaseProductQuantityNonExistent(){
+        setup1();
+        inventory.addProduct(product);
+
+        try {
+            List<Product> products = inventory.searchProduct("Producto punto");
+            inventory.searchProduct("Producto punto");
+
+            int quantity=15;
+
+            products.get(0).setQuantity(products.get(0).getQuantity()+quantity);
+
+        }catch (ProductNotFoundException e){
+            assertNotNull(e.getMessage());
+            assertEquals("No products found with that criteria.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void decreaseProductQuantity(){
+        setup1();
+        inventory.addProduct(product);
+
+        List<Product> products = inventory.searchProduct("Test Product");
+        int quantity=-1;
+
+        products.get(0).setQuantity(products.get(0).getQuantity()+quantity);
+
+        assertEquals(9, product.getQuantity());
+    }
+
+    @Test
+    public void decreaseProductQuantityNonExistent(){
+        setup1();
+        inventory.addProduct(product);
+
+        try {
+            List<Product> products = inventory.searchProduct("Producto punto");
+            inventory.searchProduct("Producto punto");
+
+            int quantity=-2;
+
+            products.get(0).setQuantity(products.get(0).getQuantity()+quantity);
+
+        }catch (ProductNotFoundException e){
+            assertNotNull(e.getMessage());
+            assertEquals("No products found with that criteria.", e.getMessage());
+        }
+    }
 }

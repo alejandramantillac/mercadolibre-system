@@ -20,6 +20,12 @@ This app also allows users to make purchases or orders, and each time one of the
 
 
 ### **Commit 5 - Order test implementation**
-**Error density** =97/(3 InventoryTest)+(8 productSearcherTest )+(12 ProductTest)+(8 OrderTest) = 97/31 = 3.129
+**Error density** = 97/(3 InventoryTest)+(8 productSearcherTest )+(12 ProductTest)+(8 OrderTest) = 97/31 = 3.129
 **realiability** = 1-3.129 = -2.128
-**Completeness** = 31/10 = 3.1
+**Completeness** = 31/9 = 3.4
+
+### **Commit 9 - More tests added in Product and ProductSearcher**
+
+*Error density* = 243/(9 InventoryTest)+(18 productSearcherTest )+(16 ProductTest)+(8 Order Test)+( 5 OrderSearcherTest) = 243/56 = 4.339
+*reliability* = 1-4.339 = -3.339
+*Completeness* = 56/9 = 6.22
