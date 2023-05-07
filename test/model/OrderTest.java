@@ -41,7 +41,7 @@ public class OrderTest {
     public void testGetDate() {
         setupStage1();
 
-        assertEquals("01/01/2023", order.getDate());
+        assertEquals("01/01/2023", order.getOrderDate());
     }
 
     @Test
@@ -79,9 +79,9 @@ public class OrderTest {
     public void testSetDate() {
         setupStage1();
 
-        order.setDate("02/01/2023");
+        order.setOrderDate("02/01/2023");
 
-        assertEquals("02/01/2023", order.getDate());
+        assertEquals("02/01/2023", order.getOrderDate());
     }
 
 }
