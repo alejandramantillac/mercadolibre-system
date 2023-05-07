@@ -34,12 +34,26 @@ public class Controller {
         orderManager.loadOrders();
     }
 
-    public String getProductName() {
-        System.out.print("\nEnter product name: ");
-        String name = scanner.nextLine();
-        return name;
-    }
     // Add product method
+    public void addProduct() {
+        String name = getProductName();
+        String description = getProductDescription();
+        int categoryInt = getProductCategoryInt();
+        String category = setCategoryToString(categoryInt);
+
+        if (!category.equals("")) {
+            ProductCategory productCategory = ProductCategory.valueOf(category);
+            double price = getProductPrice();
+            int quantity = getProductQuantity();
+            int timesPurchased = getProductTimesPurchased();
+            Product product = new Product(name, description, productCategory, price, quantity, timesPurchased);
+            inventory.addProduct(product);
+            System.out.println("Product added successfully.");
+        } else {
+            System.out.println("\nInvalid category selected. Product not added.");
+        }
+    }
+
 
     // Remove product method
 
@@ -194,7 +208,7 @@ public class Controller {
 
         if(isValid) {
             if (optionTimesPurchased == 1) {
-                int timesPurchased = getTimesPurchased();
+                int timesPurchased = getProductTimesPurchased();
                 List<Product> products = productSearcher.searchProductsByTimesPurchased(timesPurchased);
 
                 try {
@@ -243,6 +257,64 @@ public class Controller {
 
     }
 
+    public String getProductName() {
+        System.out.print("\nEnter product name: ");
+        String name = scanner.nextLine();
+        return name;
+    }
+
+    public String getProductDescription() {
+        System.out.print("Enter product description: ");
+        String description = scanner.nextLine();
+
+        return description;
+    }
+
+    public int getProductCategoryInt() {
+        System.out.println("Enter product category: \n1. Books \n2. Electronics \n3. Clothing & accesories \n4. Food and beverage \n5. Stationery \n6. Sports \n7. Beauty and personal care \n8. Toys and games ");
+        int categoryInt = scanner.nextInt();
+
+        return categoryInt;
+    }
+
+    public String setCategoryToString(int categoryInt) {
+        String category;
+        switch(categoryInt) {
+            case 1: category = ProductCategory.BOOKS.toString(); break;
+            case 2: category = ProductCategory.ELECTRONICS.toString(); break;
+            case 3: category = ProductCategory.CLOTHING_ACCESSORIES.toString(); break;
+            case 4: category = ProductCategory.FOOD_AND_BEVERAGE.toString(); break;
+            case 5: category = ProductCategory.STATIONERY.toString(); break;
+            case 6: category = ProductCategory.SPORTS.toString(); break;
+            case 7: category = ProductCategory.BEAUTY_AND_PERSONAL_CARE.toString(); break;
+            case 8: category = ProductCategory.TOYS_AND_GAMES.toString(); break;
+            default: category = ""; break;
+        }
+
+        return category;
+    }
+
+    public double getProductPrice() {
+        System.out.print("\nEnter product price: ");
+        double price = scanner.nextDouble();
+
+        return price;
+    }
+
+    public int getProductQuantity() {
+        System.out.print("\nEnter product quantity: ");
+        int quantity = scanner.nextInt();
+
+        return quantity;
+    }
+
+    public int getProductTimesPurchased() {
+        System.out.println("\nEnter product times purchased: ");
+        int timesPurchased = scanner.nextInt();
+
+        return timesPurchased;
+    }
+
     // Auxiliar methods
     public int showOptionNamesMenu() {
         System.out.println("1. Search by exact name\n2. Search by keyword");
@@ -253,13 +325,6 @@ public class Controller {
 
     public void showOptionPricesMenu() {
         System.out.println("Select an option: \n1. Search by exact price\n2. Search by price range");
-    }
-
-    public double getProductPrice() {
-        System.out.print("\nEnter product price: ");
-        double price = scanner.nextDouble();
-
-        return price;
     }
 
     public double getMinPrice() {
@@ -278,13 +343,6 @@ public class Controller {
 
     public void showOptionTimesPurchasedMenu() {
         System.out.println("Select an option: \n1. Search by exact value \n2. Search by range");
-    }
-
-    public int getTimesPurchased() {
-        System.out.print("Enter the times the product must have been purchased: ");
-        int timesPurchased = scanner.nextInt();
-
-        return timesPurchased;
     }
 
     public int getMinTimesPurchased() {
