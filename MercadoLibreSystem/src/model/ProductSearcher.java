@@ -28,4 +28,18 @@ public class ProductSearcher {
         return searcher.search();
     }
 
+    public List<Product> searchProductsByCategory(ProductCategory category) {
+        List<Product> productList = inventory.getProducts();
+        Comparator<Product> productComparator = Comparator.comparing(Product::getCategory);
+        ProductBinarySearcher<ProductCategory> searcher = new ProductBinarySearcher<>(productList, category, productComparator);
+        return searcher.search();
+    }
+
+    public List<Product> searchProductsByTimesPurchased(int timesPurchased) {
+        List<Product> productList = inventory.getProducts();
+        Comparator<Product> productComparator = Comparator.comparing(Product::getTimesPurchased);
+        ProductBinarySearcher<Integer> searcher = new ProductBinarySearcher<>(productList, timesPurchased, productComparator);
+        return searcher.search();
+    }
+
 }

@@ -19,31 +19,37 @@ This app also allows users to make purchases or orders, and each time one of the
 **Completeness** = tests / total functionalities</br>
 
 
-### **Commit 5 - Order test implementation**
+### **Commit 5 - Order test implementation - df3433af4be8b7ce83e3b0637946c788d3f7491f**
+
 **Error density** = 97/(3 InventoryTest)+(8 productSearcherTest )+(12 ProductTest)+(8 OrderTest) = 97/31 = 3.129</br>
 **realiability** = 1-3.129 = -2.128</br>
 **Completeness** = 31/9 = 3.4</br>
 
-### **Commit 9 - More tests added in Product and ProductSearcher**
+### **Commit 9 - More tests added in Product and ProductSearcher - 64bc0e37d8c3976966c117a9052daeb1d073f14b**
 
 **Error density** = 243/(9 InventoryTest)+(18 productSearcherTest )+(16 ProductTest)+(8 Order Test)+( 5 OrderSearcherTest) = 243/56 = 4.339</br>
 **reliability** = 1-4.339 = -3.339</br>
 **Completeness** = 56/9 = 6.22</br>
 
-### **Commit 11 - Exceptions implementation**
+### **Commit 11 - Exceptions implementation - 0e286e7ac84c5f383c4a2e180295194301bec47c**
 
 **Error density** =128/56 = 2.28</br>
 **reliability** = 1-2.28 = -1.28</br>
 **Completeness** = 56/9 = 6.22</br>
 
-### **Commit 13 - ProductBinarySearcher class implementation**
+### **Commit 13 - ProductBinarySearcher class implementation - 3c6d953192d1394fc987a5fd628d275b13ad2efe**
 
 **Error density** =105/56 = 1.875</br>
 **reliability** = 1-1.875 = -0.875</br>
 **Completeness** = 56/9 = 6.22</br>
 
-### **Commit 17 - Search products by name and price methods implementation**
+### **Commit 17 - Search products by name and price methods implementation - dccc75b40f92dcf34f9c980355b97d5702ec49ad**
 
 **Error density** =35/56 =0.625 </br>
 **reliability** = 1-0.625 =0.375 </br>
 **Completeness** = 56/9 = 6.22</br>
+
+### **Commit 18 - Search products by category and times purchased methods implemented in ProductSearcher and Controller class**
+**Error density** = 32/56 = 0.571 </br>
+**reliability** = 1-0.571 = 0.429 </br>
+**Completeness** = 56/9 = 6.22 </br>
