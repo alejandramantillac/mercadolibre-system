@@ -2,6 +2,8 @@ package model;
 
 import data.Inventory;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,6 +41,30 @@ public class ProductSearcher {
         List<Product> productList = inventory.getProducts();
         Comparator<Product> productComparator = Comparator.comparing(Product::getTimesPurchased);
         ProductBinarySearcher<Integer> searcher = new ProductBinarySearcher<>(productList, timesPurchased, productComparator);
+        return searcher.search();
+    }
+
+    public List<Product> searchProductsByKeyword(String keyword) {
+        List<Product> productList = inventory.getProducts();
+
+        List<Product> filteredList = new ArrayList<>();
+        for (Product product : productList) {
+            if (product.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                filteredList.add(product);
+            }
+        }
+
+        Comparator<Product> productComparator = Comparator.comparing(Product::getName);
+        Collections.sort(filteredList, productComparator);
+
+        ProductBinarySearcher<String> searcher = new ProductBinarySearcher<>(filteredList, keyword, productComparator);
+        return searcher.search();
+    }
+
+    public List<Product> searchProductsByQuantity(int quantity) {
+        List<Product> productList = inventory.getProducts();
+        Comparator<Product> productComparator = Comparator.comparing(Product::getQuantity);
+        ProductBinarySearcher<Integer> searcher = new ProductBinarySearcher<>(productList, quantity, productComparator);
         return searcher.search();
     }
 

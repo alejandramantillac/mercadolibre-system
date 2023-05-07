@@ -257,6 +257,58 @@ public class Controller {
 
     }
 
+    public void searchProductsByQuantity() {
+        showOptionQuantityMenu();
+
+        int quantityOption = scanner.nextInt();
+
+        boolean isValid = validateRange(quantityOption, 1, 2);
+
+        if (isValid) {
+            if (quantityOption == 1) {
+                try {
+                    int quantity = getProductQuantity();
+                    List<Product> matchingProducts = productSearcher.searchProductsByQuantity(quantity);
+                    System.out.println("Products with quantity " + quantity + ":");
+                    for (Product product : matchingProducts) {
+                        System.out.println(product.toString());
+                    }
+                } catch(ProductNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    int minQuantity = getMinQuantityToSearch();
+                    int maxQuantity = getMaxQuantityToSearch();
+
+                    int optionToShow = chooseWayPrintProduct();
+
+                    boolean isOnRange = validateRange(optionToShow, 1, 2);
+
+                    if(isOnRange) {
+                        List<Product> products = productSearcher.searchProductsByTimesRangePurchased(minQuantity, maxQuantity);
+
+                        if(optionToShow == 1) {
+                            Collections.reverse(products);
+                            for (Product p : products) {
+                                System.out.println(p.toString());
+                            }
+                        } else {
+                            for (Product p : products) {
+                                System.out.println(p.toString());
+                            }
+                        }
+                    } else {
+                        System.out.println("Invalid option selected.");
+                    }
+
+                } catch(ProductNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public String getProductName() {
         System.out.print("\nEnter product name: ");
         String name = scanner.nextLine();
@@ -357,6 +409,24 @@ public class Controller {
         int maxTimesPurchased = scanner.nextInt();
 
         return maxTimesPurchased;
+    }
+
+    public void showOptionQuantityMenu() {
+        System.out.println("Select an option: \n1. Search by exact quantity \n2. Search by range");
+    }
+
+    public int getMinQuantityToSearch() {
+        System.out.println("Type the exact quantity value to search: ");
+        int minQuantity = scanner.nextInt();
+
+        return minQuantity;
+    }
+
+    public int getMaxQuantityToSearch() {
+        System.out.println("Type the exact quantity value to search: ");
+        int maxQuantity = scanner.nextInt();
+
+        return maxQuantity;
     }
 
     private int chooseWayPrintProduct() {

@@ -53,3 +53,8 @@ This app also allows users to make purchases or orders, and each time one of the
 **Error density** = 32/56 = 0.571 </br>
 **reliability** = 1-0.571 = 0.429 </br>
 **Completeness** = 56/9 = 6.22 </br>
+
+### **Commit 20 - Search products by keyword and quantity methods implemented in ProductSearcher and Controller class**
+**Error density** = 23/56 = 0.410 </br>
+**reliability** = 1-0.410 = 0.59 </br>
+**Completeness** = 56/9 = 6.22 </br>
