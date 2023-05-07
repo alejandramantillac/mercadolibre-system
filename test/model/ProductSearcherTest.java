@@ -1,5 +1,6 @@
 package model;
 
+import data.Inventory;
 import exceptions.ProductNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ProductSearcherTest {
 
-    private  Inventory inventory;
+    private Inventory inventory;
 
     //Stage
     public void setupStage1(){

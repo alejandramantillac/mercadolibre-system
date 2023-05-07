@@ -3,6 +3,8 @@ package model;
 
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import data.Inventory;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
