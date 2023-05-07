@@ -21,7 +21,7 @@ public class InventoryTest {
         inventory.getProducts().clear();
         inventory.addProduct(new Product("Product A", "Description A", ProductCategory.BOOKS, 22.0, 2, 2));
         inventory.addProduct(new Product("Product B", "Description B", ProductCategory.BEAUTY_AND_PERSONAL_CARE, 56.0, 6, 3));
-        //inventory.saveProducts();
+        inventory.saveProducts();
     }
 
 

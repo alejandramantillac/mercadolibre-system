@@ -35,3 +35,9 @@ This app also allows users to make purchases or orders, and each time one of the
 **Error density** =128/56 = 2.28</br>
 **reliability** = 1-2.28 = -1.28</br>
 **Completeness** = 56/9 = 6.22</br>
+
+### **Commit 13 - ProductBinarySearcher class implementation**
+
+**Error density** =105/56 = 1.875</br>
+**reliability** = 1-1.875 = -0.875</br>
+**Completeness** = 56/9 = 6.22</br>

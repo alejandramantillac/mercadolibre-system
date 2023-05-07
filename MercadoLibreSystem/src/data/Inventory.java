@@ -52,7 +52,7 @@ public class Inventory {
         return this.products;
     }
 
-    private void saveProducts() {
+    public void saveProducts() {
         try {
             String json = gson.toJson(this.products, productListType);
             Files.write(Paths.get("products.json"), json.getBytes());
@@ -62,7 +62,7 @@ public class Inventory {
         }
     }
 
-    private void loadProducts() {
+    public void loadProducts() {
         try {
             File file = new File("products.json");
             if (file.exists()) {
