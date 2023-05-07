@@ -41,3 +41,9 @@ This app also allows users to make purchases or orders, and each time one of the
 **Error density** =105/56 = 1.875</br>
 **reliability** = 1-1.875 = -0.875</br>
 **Completeness** = 56/9 = 6.22</br>
+
+### **Commit 17 - Search products by name and price methods implementation**
+
+**Error density** =35/56 =0.625 </br>
+**reliability** = 1-0.625 =0.375 </br>
+**Completeness** = 56/9 = 6.22</br>

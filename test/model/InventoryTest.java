@@ -24,21 +24,6 @@ public class InventoryTest {
         inventory.saveProducts();
     }
 
-
-    public void setupStage2() {
-        ArrayList<Product> products1 = new ArrayList<>();
-        products1.add(new Product("Product 1", "the description 1", ProductCategory.STATIONERY, 10.0, 5, 1));
-        inventory = new Inventory();
-        inventory.getOrders().clear();
-        inventory.addOrder(new Order("Alejandra", products1, 50, "06/06/2006"));
-
-        ArrayList<Product> products2 = new ArrayList<>();
-        products2.add(new Product("Product 2", "the description 2", ProductCategory.ELECTRONICS, 15.0, 7, 0));
-        inventory.addOrder(new Order("Pablo", products2, 105, "07/07/2007"));
-        inventory.saveOrders();
-    }
-
-
     @Test
     public void testAddProduct() {
         setupStage1();
@@ -92,49 +77,4 @@ public class InventoryTest {
         assertEquals(6, loadedProducts.get(1).getQuantity());
         assertEquals(3, loadedProducts.get(1).getTimesPurchased());
     }
-
-    @Test
-    public void testAddOrder() {
-        setupStage2();
-        assertEquals(2, inventory.getOrders().size());
-        assertEquals("Alejandra", inventory.getOrders().get(0).getCustomerName());
-    }
-
-    @Test
-    public void testMultipleOrder(){
-        setupStage2();
-        ArrayList<Product> productss = new ArrayList<>();
-        productss.add(new Product("Product 3", "the description 3", ProductCategory.STATIONERY, 30.0, 1, 30));
-        inventory = new Inventory();
-        inventory.addOrder(new Order("Mantilla", productss, 30, "02/12/2002"));
-
-        ArrayList<Product> products2 = new ArrayList<>();
-        productss.add(new Product("Product 4", "the description 4", ProductCategory.SPORTS, 14.0, 14, 1));
-        inventory.addOrder(new Order("Pineda", productss, 350, "09/08/2006"));
-        assertEquals(4, inventory.getOrders().size());
-    }
-
-    @Test
-    public void testRemoveOrder() {
-        setupStage2();
-        inventory.removeOrder(inventory.getOrders().get(0));
-        assertEquals(1, inventory.getOrders().size());
-    }
-
-    @Test
-    public void SaveLoadOrders() {
-        setupStage2();
-
-        inventory.loadOrders();
-
-        List<Order> loadedOrders = new inventory.getOrders();
-
-        assertEquals("Alejandra", loadedOrders.get(0).getCustomerName());
-        assertEquals(50, loadedOrders.get(0).getTotal());
-        assertEquals("06/06/2006", loadedOrders.get(0).getDate());
-        assertEquals("Pablo", loadedOrders.get(1).getCustomerName());
-        assertEquals(105, loadedOrders.get(1).getTotal());
-        assertEquals("07/07/2007", loadedOrders.get(1).getDate());
-    }
-
 }

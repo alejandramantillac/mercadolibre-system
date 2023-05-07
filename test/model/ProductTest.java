@@ -1,11 +1,20 @@
 package model;
 
+import exceptions.ProductNotFoundException;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
+import data.*;
+
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ProductTest {
     private Product product;
+
+    private Inventory inventory;
 
     public void setup1() {
         product = new Product("Test Product", "A product for testing purposes", ProductCategory.ELECTRONICS, 999.99, 10, 0);
