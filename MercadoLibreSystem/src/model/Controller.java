@@ -56,6 +56,53 @@ public class Controller {
 
 
     // Remove product method
+    public void removeProduct() throws InvalidOptionEnteredException, ProductNotFoundException {
+        String name = getProductName();
+        List<Product> results = getProductsByName(name);
+
+        if (results.isEmpty()) {
+            throw new ProductNotFoundException();
+        }
+
+        System.out.println("\n" + results.size() + " products found:");
+        for (int i = 0; i < results.size(); i++) {
+            System.out.println((i + 1) + ". " + results.get(i).getName());
+        }
+
+        int number = getNumberProductSelected();
+
+        try {
+            if (number < 1 || number > results.size()) {
+                throw new InvalidOptionEnteredException();
+            }
+
+            Product product = results.get(number - 1);
+
+            inventory.removeProduct(product);
+            System.out.println("Product removed successfully.");
+        } catch (InvalidOptionEnteredException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //Increase product quantity method
+    public void increaseProductQuantity() {
+        String productName = getProductName();
+
+        List<Product> products = inventory.searchProduct(productName);
+
+        if (products.isEmpty()) {
+            System.out.println("No products found with the specified name.");
+            return;
+        }
+
+        for (Product product : products) {
+            int quantity = getProductQuantity();
+
+            product.setQuantity(product.getQuantity() + quantity);
+            System.out.println("Product " + product.getName() + " quantity increased by " + quantity);
+        }
+    }
 
     // Search products methods
 
@@ -309,6 +356,8 @@ public class Controller {
         }
     }
 
+
+
     public String getProductName() {
         System.out.print("\nEnter product name: ");
         String name = scanner.nextLine();
@@ -366,6 +415,8 @@ public class Controller {
 
         return timesPurchased;
     }
+
+
 
     // Auxiliar methods
     public int showOptionNamesMenu() {
@@ -429,12 +480,30 @@ public class Controller {
         return maxQuantity;
     }
 
+
+
+    public List getProductsByName(String name) {
+        List<Product> results = productSearcher.searchProductsByName(name);
+
+        return results;
+    }
+
+    public int getNumberProductSelected() {
+        System.out.print("\nEnter the number of the product to select: ");
+        int number = scanner.nextInt();
+
+        return number;
+    }
+
+
+
     private int chooseWayPrintProduct() {
         System.out.println("How would you like to order the results?: \n1. Ascending \n2. Descending");
         int optionOrder = scanner.nextInt();
 
         return optionOrder;
     }
+
 
     public boolean validateRange(int value, int min, int max) {
         boolean isValid = true;

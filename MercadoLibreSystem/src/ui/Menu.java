@@ -37,7 +37,7 @@ public class Menu {
                     controller.addProduct();
                     break;
                 case 2:
-                    //remove product
+                    controller.removeProduct();
                     break;
                 case 3:
                     searchProductsMenu();
@@ -49,7 +49,7 @@ public class Menu {
                     // search orders menu
                     break;
                 case 6:
-                    // increase prodcut quantity
+                    controller.increaseProductQuantity();
                     break;
                 case 7:
                     exit = true;
@@ -92,7 +92,7 @@ public class Menu {
                     controller.searchProductsByTimesPurchased();
                     break;
                 case 5:
-                    //search by quantity
+                    controller.searchProductsByQuantity();
                     break;
                 case 6:
                     exit = true;
