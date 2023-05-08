@@ -30,9 +30,7 @@ public class OrderSearcher {
                 result.add(order);
             }
         }
-        if (result.isEmpty()) {
-            throw new OrderNotFoundException();
-        }
+
         return result;
     }
 
@@ -45,9 +43,7 @@ public class OrderSearcher {
                 result.add(order);
             }
         }
-        if (result.isEmpty()) {
-            throw new OrderNotFoundException();
-        }
+
         return result;
     }
 
@@ -72,9 +68,6 @@ public class OrderSearcher {
             result.addAll(sortedList.subList(lowerIndex, upperIndex));
         }
 
-        if (result.isEmpty()) {
-            throw new OrderNotFoundException();
-        }
         return result;
     }
 
@@ -87,9 +80,7 @@ public class OrderSearcher {
                 result.add(order);
             }
         }
-        if (result.isEmpty()) {
-            throw new OrderNotFoundException();
-        }
+
         return result;
     }
 
