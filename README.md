@@ -1,7 +1,7 @@
 # mercadolibre-system
 Algoritmos y Programación II - Tarea Integradora II
 
-Maria Alejandra Mantilla C. - A00395831</br>
+Maria Alejandra Mantilla C. - A00395792</br>
 Pablo Fernando Pineda P. - A00395831
 
 # **MercadoLibreSystem Project**
@@ -57,4 +57,9 @@ This app also allows users to make purchases or orders, and each time one of the
 ### **Commit 20 - Search products by keyword and quantity methods implemented in ProductSearcher and Controller class**
 **Error density** = 23/56 = 0.410 </br>
 **reliability** = 1-0.410 = 0.59 </br>
+**Completeness** = 56/9 = 6.22 </br>
+
+### **Commit 22 - Search products by times purchased and price with range implemented in ProductSearcher class**
+**Error density** = 14/56 = 0.25 </br>
+**reliability** = 1-0.25 = 0.75 </br>
 **Completeness** = 56/9 = 6.22 </br>

@@ -1,6 +1,7 @@
 package model;
 
 import data.Inventory;
+import exceptions.ProductNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +31,18 @@ public class ProductSearcher {
         return searcher.search();
     }
 
+    public List<Product> searchProductsByPriceRange(double minPrice, double maxPrice) {
+        List<Product> productList = inventory.getProducts();
+        List<Product> filteredList = new ArrayList<>();
+        for (Product product : productList) {
+            if (product.getPrice() >= minPrice && product.getPrice() <= maxPrice) {
+                filteredList.add(product);
+            }
+        }
+        Collections.reverse(filteredList);
+        return filteredList;
+    }
+
     public List<Product> searchProductsByCategory(ProductCategory category) {
         List<Product> productList = inventory.getProducts();
         Comparator<Product> productComparator = Comparator.comparing(Product::getCategory);
@@ -42,6 +55,24 @@ public class ProductSearcher {
         Comparator<Product> productComparator = Comparator.comparing(Product::getTimesPurchased);
         ProductBinarySearcher<Integer> searcher = new ProductBinarySearcher<>(productList, timesPurchased, productComparator);
         return searcher.search();
+    }
+
+    public List<Product> searchProductsByTimesRangePurchased(int minTimesPurchased, int maxTimesPurchased) throws ProductNotFoundException {
+        List<Product> productList = inventory.getProducts();
+        List<Product> filteredList = new ArrayList<>();
+        int totalPurchased = maxTimesPurchased - minTimesPurchased;
+
+        int initialPurchased = minTimesPurchased;
+        for(int i = 0; i < totalPurchased; i++) {
+            initialPurchased++;
+            for (Product product : productList) {
+                if (product.getTimesPurchased() == initialPurchased) {
+                    filteredList.add(product);
+                }
+            }
+        }
+        Collections.reverse(filteredList);
+        return filteredList;
     }
 
     public List<Product> searchProductsByKeyword(String keyword) {
@@ -68,4 +99,20 @@ public class ProductSearcher {
         return searcher.search();
     }
 
+    public List<Product> searchProductsByRangeQuantity(int minQuantity, int maxQuantity) {
+        List<Product> productList = inventory.getProducts();
+        List<Product> filteredList = new ArrayList<>();
+
+        int initialRange = minQuantity;
+        for(int i = minQuantity; i < maxQuantity; i++) {
+            initialRange++;
+            for (Product product : productList) {
+                if (product.getQuantity() == initialRange) {
+                    filteredList.add(product);
+                }
+            }
+        }
+        Collections.reverse(filteredList);
+        return filteredList;
+    }
 }
