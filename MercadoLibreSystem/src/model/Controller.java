@@ -54,7 +54,6 @@ public class Controller {
         }
     }
 
-
     // Remove product method
     public void removeProduct() throws InvalidOptionEnteredException, ProductNotFoundException {
         String name = getProductName();
@@ -86,14 +85,13 @@ public class Controller {
     }
 
     //Increase product quantity method
-    public void increaseProductQuantity() {
+    public void increaseProductQuantity() throws ProductNotFoundException {
         String productName = getProductName();
 
         List<Product> products = inventory.searchProduct(productName);
 
         if (products.isEmpty()) {
-            System.out.println("No products found with the specified name.");
-            return;
+            throw new ProductNotFoundException();
         }
 
         for (Product product : products) {
@@ -357,7 +355,6 @@ public class Controller {
     }
 
     // Add order
-
     public void addOrder() throws InvalidDateFormatException, ProductNotFoundException{
         String customerName = getCustomerName();
 
@@ -365,6 +362,10 @@ public class Controller {
         boolean addMoreProducts = true;
         String orderDate = "";
         while (addMoreProducts) {
+            ArrayList<String> productNames = new ArrayList<>();
+            for (Product product : products) {
+                productNames.add(product.getName());
+            }
             String productName = getProductName();
             try {
                 List<Product> results = productSearcher.searchProductsByName(productName);
@@ -446,7 +447,7 @@ public class Controller {
     }
 
 
-    public void searchOrdersByTotal() {
+    public void searchOrdersByTotal() throws OrderNotFoundException {
         showOptionPricesMenu();
         int option = scanner.nextInt();
 
@@ -456,8 +457,7 @@ public class Controller {
                 double total = getProductPrice();
                 List<Order> orders = orderSearcher.searchByTotal(total);
                 if (orders.isEmpty()) {
-                    System.out.println("\nNo orders found with that total.");
-                    return;
+                    throw new OrderNotFoundException();
                 }
                 System.out.println("\n" + orders.size() + " orders found:");
                 for (Order order : orders) {
@@ -482,8 +482,7 @@ public class Controller {
                         }
                     } else {
                         if (orders.isEmpty()) {
-                            System.out.println("\nNo orders found with that total.");
-                            return;
+                            throw new OrderNotFoundException();
                         }
                         System.out.println("\n" + orders.size() + " orders found:");
                         for (Order order : orders) {
@@ -501,21 +500,17 @@ public class Controller {
         }
     }
 
-
-    public void searchOrdersByDate() {
+    public void searchOrdersByDate() throws OrderNotFoundException {
         String orderDate = getOrderDate();
         List<Order> orders = orderSearcher.searchByOrderDate(orderDate);
         if (orders.isEmpty()) {
-            System.out.println("\nNo orders found with that date.");
-            return;
+            throw new OrderNotFoundException();
         }
         System.out.println("\n" + orders.size() + " orders found:");
         for (Order order : orders) {
             System.out.println(order);
         }
     }
-
-
 
     public String getProductName() {
         System.out.print("\nEnter product name: ");

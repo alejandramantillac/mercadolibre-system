@@ -17,22 +17,33 @@ public class ProductSearcher {
         this.inventory = inventory;
     }
 
-    public List<Product> searchProductsByName(String name) {
+    public List<Product> searchProductsByName(String name) throws ProductNotFoundException {
         List<Product> productList = inventory.getProducts();
+        Collections.sort(productList, Comparator.comparing(Product::getName));
         Comparator<Product> productComparator = Comparator.comparing(Product::getName);
         ProductBinarySearcher<String> searcher = new ProductBinarySearcher<>(productList, name, productComparator);
-        return searcher.search();
+        List<Product> foundProducts = searcher.search();
+        if (foundProducts.isEmpty()) {
+            throw new ProductNotFoundException();
+        }
+        return foundProducts;
     }
 
-    public List<Product> searchProductsByPrice(double price) {
+    public List<Product> searchProductsByPrice(double price) throws ProductNotFoundException {
         List<Product> productList = inventory.getProducts();
+        Collections.sort(productList, Comparator.comparing(Product::getPrice));
         Comparator<Product> productComparator = Comparator.comparing(Product::getPrice);
         ProductBinarySearcher<Double> searcher = new ProductBinarySearcher<>(productList, price, productComparator);
-        return searcher.search();
+        List<Product> foundProducts = searcher.search();
+        if (foundProducts.isEmpty()) {
+            throw new ProductNotFoundException();
+        }
+        return foundProducts;
     }
 
-    public List<Product> searchProductsByPriceRange(double minPrice, double maxPrice) {
+    public List<Product> searchProductsByPriceRange(double minPrice, double maxPrice) throws ProductNotFoundException {
         List<Product> productList = inventory.getProducts();
+        Collections.sort(productList, Comparator.comparing(Product::getPrice));
         List<Product> filteredList = new ArrayList<>();
         for (Product product : productList) {
             if (product.getPrice() >= minPrice && product.getPrice() <= maxPrice) {
@@ -40,25 +51,39 @@ public class ProductSearcher {
             }
         }
         Collections.reverse(filteredList);
+        if (filteredList.isEmpty()) {
+            throw new ProductNotFoundException();
+        }
         return filteredList;
     }
 
-    public List<Product> searchProductsByCategory(ProductCategory category) {
+    public List<Product> searchProductsByCategory(ProductCategory category) throws ProductNotFoundException {
         List<Product> productList = inventory.getProducts();
+        Collections.sort(productList, Comparator.comparing(Product::getCategory));
         Comparator<Product> productComparator = Comparator.comparing(Product::getCategory);
         ProductBinarySearcher<ProductCategory> searcher = new ProductBinarySearcher<>(productList, category, productComparator);
-        return searcher.search();
+        List<Product> foundProducts = searcher.search();
+        if (foundProducts.isEmpty()) {
+            throw new ProductNotFoundException();
+        }
+        return foundProducts;
     }
 
-    public List<Product> searchProductsByTimesPurchased(int timesPurchased) {
+    public List<Product> searchProductsByTimesPurchased(int timesPurchased) throws ProductNotFoundException {
         List<Product> productList = inventory.getProducts();
+        Collections.sort(productList, Comparator.comparing(Product::getTimesPurchased));
         Comparator<Product> productComparator = Comparator.comparing(Product::getTimesPurchased);
         ProductBinarySearcher<Integer> searcher = new ProductBinarySearcher<>(productList, timesPurchased, productComparator);
-        return searcher.search();
+        List<Product> searchResult = searcher.search();
+        if (searchResult.isEmpty()) {
+            throw new ProductNotFoundException();
+        }
+        return searchResult;
     }
 
     public List<Product> searchProductsByTimesRangePurchased(int minTimesPurchased, int maxTimesPurchased) throws ProductNotFoundException {
         List<Product> productList = inventory.getProducts();
+        Collections.sort(productList, Comparator.comparing(Product::getTimesPurchased));
         List<Product> filteredList = new ArrayList<>();
         int totalPurchased = maxTimesPurchased - minTimesPurchased;
 
@@ -71,37 +96,53 @@ public class ProductSearcher {
                 }
             }
         }
+
+        if (filteredList.isEmpty()) {
+            throw new ProductNotFoundException();
+        }
+
         Collections.reverse(filteredList);
         return filteredList;
     }
 
-    public List<Product> searchProductsByKeyword(String keyword) {
+    public List<Product> searchProductsByKeyword(String keyword) throws ProductNotFoundException {
         List<Product> productList = inventory.getProducts();
-
         List<Product> filteredList = new ArrayList<>();
+        Collections.sort(productList, Comparator.comparing(Product::getName));
+
         for (Product product : productList) {
-            if (product.getName().toLowerCase().contains(keyword.toLowerCase())) {
+            String productName = product.getName();
+            if (productName.contains(keyword)) {
                 filteredList.add(product);
             }
         }
 
         Comparator<Product> productComparator = Comparator.comparing(Product::getName);
-        Collections.sort(filteredList, productComparator);
+        filteredList.sort(productComparator);
 
-        ProductBinarySearcher<String> searcher = new ProductBinarySearcher<>(filteredList, keyword, productComparator);
-        return searcher.search();
+        if (filteredList.isEmpty()) {
+            throw new ProductNotFoundException();
+        }
+
+        return filteredList;
     }
 
-    public List<Product> searchProductsByQuantity(int quantity) {
+    public List<Product> searchProductsByQuantity(int quantity) throws ProductNotFoundException {
         List<Product> productList = inventory.getProducts();
+        Collections.sort(productList, Comparator.comparing(Product::getQuantity));
         Comparator<Product> productComparator = Comparator.comparing(Product::getQuantity);
         ProductBinarySearcher<Integer> searcher = new ProductBinarySearcher<>(productList, quantity, productComparator);
-        return searcher.search();
+        List<Product> foundProducts = searcher.search();
+        if (foundProducts.isEmpty()) {
+            throw new ProductNotFoundException();
+        }
+        return foundProducts;
     }
 
-    public List<Product> searchProductsByRangeQuantity(int minQuantity, int maxQuantity) {
+    public List<Product> searchProductsByRangeQuantity(int minQuantity, int maxQuantity) throws ProductNotFoundException {
         List<Product> productList = inventory.getProducts();
         List<Product> filteredList = new ArrayList<>();
+        Collections.sort(productList, Comparator.comparing(Product::getQuantity));
 
         int initialRange = minQuantity;
         for(int i = minQuantity; i <= maxQuantity; i++) {
@@ -113,6 +154,11 @@ public class ProductSearcher {
             }
         }
         Collections.reverse(filteredList);
+
+        if (filteredList.isEmpty()) {
+            throw new ProductNotFoundException();
+        }
+
         return filteredList;
     }
 }
