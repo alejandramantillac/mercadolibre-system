@@ -1,12 +1,12 @@
 package model;
-/*
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.ProductNotFoundException;
+import exceptions.OrderNotFoundException;
 import org.testng.annotations.Test;
 
 public class OrderSearcherTest {
@@ -56,7 +56,7 @@ public class OrderSearcherTest {
     public void testSearchByTotalOrder(){
         setupStage1();
 
-        List<Order>results = searcher.searchOrdersByTotal(20.5);
+        List<Order>results = searcher.searchByTotal(20.5);
         assertEquals(1, results.size());
         assertEquals("customer1", results.get(0).getCustomerName());
     }
@@ -66,8 +66,8 @@ public class OrderSearcherTest {
         setupStage1();
 
         try{
-            List<Order>results = searcher.searchOrdersByTotal(40);
-            searcher.searchOrdersByTotal(40);
+            List<Order>results = searcher.searchByTotal(40);
+            searcher.searchByTotal(40);
         }catch (OrderNotFoundException e){
             assertNotNull(e.getMessage());
             assertEquals("No orders found with that criteria.", e.getMessage());
@@ -85,4 +85,4 @@ public class OrderSearcherTest {
 
 }
 
- */
+

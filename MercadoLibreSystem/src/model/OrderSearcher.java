@@ -18,4 +18,33 @@ public class OrderSearcher {
         orderList.add(order);
 
     }
+
+    public List<Order> searchByCustomerName(String customerName) {
+        List<Order> result = new ArrayList<>();
+        OrderBinarySearcher<Order> searcher = new OrderBinarySearcher<>(orderList, Comparator.comparing(Order::getCustomerName));
+        List<Order> matches = searcher.search(new Order(customerName, null, 0.0, null));
+        for (Order order : matches) {
+            if (order.getCustomerName().equals(customerName)) {
+                result.add(order);
+            }
+        }
+        return result;
+    }
+
+    public List<Order> searchByTotal(double total) {
+        List<Order> result = new ArrayList<>();
+        OrderBinarySearcher<Order> searcher = new OrderBinarySearcher<>(orderList, Comparator.comparing(Order::getTotal));
+        List<Order> matches = searcher.search(new Order(null, null, total, null));
+        for (Order order : matches) {
+            if (order.getTotal() == total) {
+                result.add(order);
+            }
+        }
+        return result;
+    }
+
+
+
+
+
 }

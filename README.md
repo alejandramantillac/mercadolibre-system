@@ -49,17 +49,22 @@ This app also allows users to make purchases or orders, and each time one of the
 **reliability** = 1-0.625 =0.375 </br>
 **Completeness** = 56/9 = 6.22</br>
 
-### **Commit 18 - Search products by category and times purchased methods implemented in ProductSearcher and Controller class**
+### **Commit 18 - Search products by category and times purchased methods implemented in ProductSearcher and Controller class - ae6347b5c9de2389653fbc4fc6c10c196ba1c9b9**
 **Error density** = 32/56 = 0.571 </br>
 **reliability** = 1-0.571 = 0.429 </br>
 **Completeness** = 56/9 = 6.22 </br>
 
-### **Commit 20 - Search products by keyword and quantity methods implemented in ProductSearcher and Controller class**
+### **Commit 20 - Search products by keyword and quantity methods implemented in ProductSearcher and Controller class - d5016a30042b2e46e554bb9e42a5a6a468301dda**
 **Error density** = 23/56 = 0.410 </br>
 **reliability** = 1-0.410 = 0.59 </br>
 **Completeness** = 56/9 = 6.22 </br>
 
-### **Commit 22 - Search products by times purchased and price with range implemented in ProductSearcher class**
+### **Commit 22 - Search products by times purchased and price with range implemented in ProductSearcher class - 20d18f8fe8808f52825ea0a3063aaca9c9645f46**
 **Error density** = 14/56 = 0.25 </br>
 **reliability** = 1-0.25 = 0.75 </br>
+**Completeness** = 56/9 = 6.22 </br>
+
+### **Commit 24 - Search orders by Customer name and total implemented in OrderSearcher class**
+**Error density** = 1/56 = 0.0178 </br>
+**reliability** = 1-0.0178 = 0.9822 </br>
 **Completeness** = 56/9 = 6.22 </br>

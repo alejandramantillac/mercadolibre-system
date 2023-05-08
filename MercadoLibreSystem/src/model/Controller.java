@@ -545,14 +545,14 @@ public class Controller {
     }
 
     public int getMinQuantityToSearch() {
-        System.out.println("Type the quantity value to search: ");
+        System.out.println("Type the min quantity value to search: ");
         int minQuantity = scanner.nextInt();
 
         return minQuantity;
     }
 
     public int getMaxQuantityToSearch() {
-        System.out.println("Type the quantity value to search: ");
+        System.out.println("Type the max quantity value to search: ");
         int maxQuantity = scanner.nextInt();
 
         return maxQuantity;
