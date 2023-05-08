@@ -68,3 +68,8 @@ This app also allows users to make purchases or orders, and each time one of the
 **Error density** = 1/56 = 0.0178 </br>
 **reliability** = 1-0.0178 = 0.9822 </br>
 **Completeness** = 56/9 = 6.22 </br>
+
+### **Commit 25 - Search orders by Date and total with range implemented in OrderSearcher and Controller class**
+**Error density** = 0/56 = 0 </br>
+**reliability** = 1-0 = 1 </br>
+**Completeness** = 56/9 = 6.22 </br>

@@ -78,7 +78,7 @@ public class OrderSearcherTest {
     public void testSearchByDateOrder(){
         setupStage1();
 
-        List<Order>results = searcher.searchOrdersByDate("18/07/2020");
+        List<Order>results = searcher.searchByOrderDate("18/07/2020");
         assertEquals(1, results.size());
         assertEquals("customer1", results.get(0).getCustomerName());
     }

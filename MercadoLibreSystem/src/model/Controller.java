@@ -415,6 +415,7 @@ public class Controller {
             }
         }
 
+
         double total = 0.0;
         for (Product product : products) {
             total += product.getPrice() * product.getQuantity();
@@ -425,6 +426,93 @@ public class Controller {
         orderManager.addOrder(new Order(customerName,products, total, orderDate));
         orderManager.saveOrders();
         System.out.println("\nOrder added successfully.");
+    }
+
+    public void searchOrdersByCustomerName() {
+        String customerName = getCustomerName();
+        List<Order> results = orderSearcher.searchByCustomerName(customerName);
+
+        if (results.isEmpty()) {
+            System.out.println("\nNo orders found with that customer name.");
+            return;
+        }
+
+        System.out.println("\n" + results.size() + " orders found:");
+        for (int i = 0; i < results.size(); i++) {
+            Order order = results.get(i);
+            System.out.println((i + 1) + ". Order ID: " + order.getId() + " - Customer: " + order.getCustomerName());
+            System.out.println(" - Products: " + order.getProducts());
+        }
+    }
+
+
+    public void searchOrdersByTotal() {
+        showOptionPricesMenu();
+        int option = scanner.nextInt();
+
+        boolean isValid = validateRange(option,1,2);
+        if(isValid) {
+            if(option == 1) {
+                double total = getProductPrice();
+                List<Order> orders = orderSearcher.searchByTotal(total);
+                if (orders.isEmpty()) {
+                    System.out.println("\nNo orders found with that total.");
+                    return;
+                }
+                System.out.println("\n" + orders.size() + " orders found:");
+                for (Order order : orders) {
+                    System.out.println(order);
+                }
+            } else {
+                System.out.println("Minimum price");
+                double minPrice = getProductPrice();
+                System.out.println("Maximum price");
+                double maxPrice = getProductPrice();
+                List<Order> orders = orderSearcher.searchByTotalRange(minPrice, maxPrice);
+
+                int optionToShow = chooseWayPrintProduct();
+
+                boolean isOnRange = validateRange(optionToShow, 1, 2);
+
+                if(isOnRange) {
+                    if(optionToShow == 1) {
+                        Collections.reverse(orders);
+                        for (Order order : orders) {
+                            System.out.println(order.toString());
+                        }
+                    } else {
+                        if (orders.isEmpty()) {
+                            System.out.println("\nNo orders found with that total.");
+                            return;
+                        }
+                        System.out.println("\n" + orders.size() + " orders found:");
+                        for (Order order : orders) {
+                            System.out.println(order);
+                        }
+                    }
+                } else {
+                    System.out.println("Invalid option selected.");
+                }
+
+
+            }
+        } else {
+            System.out.println("Invalid option selected.");
+        }
+    }
+
+
+    public void searchOrdersByDate() {
+        String orderDate = getOrderDate();
+        List<Order> orders = orderSearcher.searchByOrderDate(orderDate);
+        if (orders.isEmpty()) {
+            System.out.println("\nNo orders found with that date.");
+            return;
+        }
+        System.out.println("\n" + orders.size() + " orders found:");
+        for (Order order : orders) {
+            System.out.println(order);
+        }
     }
 
 

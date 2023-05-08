@@ -18,6 +18,7 @@ public class ProductTest {
 
     public void setup1() {
         product = new Product("Test Product", "A product for testing purposes", ProductCategory.ELECTRONICS, 999.99, 10, 0);
+        inventory=new Inventory();
     }
 
     @Test

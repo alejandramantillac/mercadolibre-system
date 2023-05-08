@@ -111,6 +111,21 @@ public class Menu {
         return option;
     }
 
+    private void searchOrdersMenu() {
+        boolean exit = false;
+        while (!exit) {
+            int option = selectOptionSearchOrders();
+
+            switch (option) {
+                case 1: controller.searchOrdersByCustomerName(); break;
+                case 2: controller.searchOrdersByTotal(); break;
+                case 3: controller.searchOrdersByDate(); break;
+                case 4: exit = true; break;
+                default: System.out.println("Invalid option. Please try again."); break;
+            }
+        }
+    }
+
     public int selectOptionSearchOrders() {
         System.out.println("\n====== SEARCH ORDERS ======");
         System.out.println("1. Search by customer name \n2. Search by total price \n3. Search by order date  \n4. Return to main menu \nEnter an option: ");

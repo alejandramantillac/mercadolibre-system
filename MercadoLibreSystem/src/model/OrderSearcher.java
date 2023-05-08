@@ -43,8 +43,28 @@ public class OrderSearcher {
         return result;
     }
 
+    public List<Order> searchByTotalRange(double lowerTotal, double upperTotal) {
+        List<Order> result = new ArrayList<>();
+        OrderBinarySearcher<Order> searcher = new OrderBinarySearcher<>(orderList, Comparator.comparing(Order::getTotal));
+        List<Order> matches = searcher.search(new Order(null, null, lowerTotal, null));
+        for (Order order : matches) {
+            if (order.getTotal() >= lowerTotal && order.getTotal() <= upperTotal) {
+                result.add(order);
+            }
+        }
+        return result;
+    }
 
-
-
+    public List<Order> searchByOrderDate(String orderDate) {
+        List<Order> result = new ArrayList<>();
+        OrderBinarySearcher<Order> searcher = new OrderBinarySearcher<>(orderList, Comparator.comparing(Order::getOrderDate));
+        List<Order> matches = searcher.search(new Order(null, null, 0.0, orderDate));
+        for (Order order : matches) {
+            if (order.getOrderDate().equals(orderDate)) {
+                result.add(order);
+            }
+        }
+        return result;
+    }
 
 }

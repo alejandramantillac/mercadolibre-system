@@ -63,7 +63,7 @@ public class ProductSearcher {
         int totalPurchased = maxTimesPurchased - minTimesPurchased;
 
         int initialPurchased = minTimesPurchased;
-        for(int i = 0; i < totalPurchased; i++) {
+        for(int i = 0; i <= totalPurchased; i++) {
             initialPurchased++;
             for (Product product : productList) {
                 if (product.getTimesPurchased() == initialPurchased) {
@@ -104,7 +104,7 @@ public class ProductSearcher {
         List<Product> filteredList = new ArrayList<>();
 
         int initialRange = minQuantity;
-        for(int i = minQuantity; i < maxQuantity; i++) {
+        for(int i = minQuantity; i <= maxQuantity; i++) {
             initialRange++;
             for (Product product : productList) {
                 if (product.getQuantity() == initialRange) {
