@@ -43,7 +43,7 @@ public class Menu {
                     searchProductsMenu();
                     break;
                 case 4:
-                    //add order
+                    controller.addOrder();
                     break;
                 case 5:
                     // search orders menu

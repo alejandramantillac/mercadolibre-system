@@ -29,7 +29,7 @@ public class Controller {
         this.orderManager = new OrderManager("orders.json");
         this.orders = new ArrayList<>();
         this.productSearcher = new ProductSearcher(this.inventory);
-        this.orderSearcher = new OrderSearcher();
+        this.orderSearcher = new OrderSearcher(this.orders);
         this.scanner = new Scanner(System.in);
         orderManager.loadOrders();
     }
@@ -255,7 +255,7 @@ public class Controller {
 
         if(isValid) {
             if (optionTimesPurchased == 1) {
-                int timesPurchased = getProductTimesPurchased();
+                int timesPurchased = getTimesPurchased();
                 List<Product> products = productSearcher.searchProductsByTimesPurchased(timesPurchased);
 
                 try {
@@ -333,7 +333,7 @@ public class Controller {
                     boolean isOnRange = validateRange(optionToShow, 1, 2);
 
                     if(isOnRange) {
-                        List<Product> products = productSearcher.searchProductsByTimesRangePurchased(minQuantity, maxQuantity);
+                        List<Product> products = productSearcher.searchProductsByRangeQuantity(minQuantity, maxQuantity);
 
                         if(optionToShow == 1) {
                             Collections.reverse(products);
@@ -354,6 +354,77 @@ public class Controller {
                 }
             }
         }
+    }
+
+    // Add order
+
+    public void addOrder() throws InvalidDateFormatException, ProductNotFoundException{
+        String customerName = getCustomerName();
+
+        ArrayList<Product> products = new ArrayList<>();
+        boolean addMoreProducts = true;
+        String orderDate = "";
+        while (addMoreProducts) {
+            String productName = getProductName();
+            try {
+                List<Product> results = productSearcher.searchProductsByName(productName);
+
+                if (results.isEmpty()) {
+                    System.out.println("\nNo products found with that name.");
+                    continue;
+                }
+
+                System.out.println("\n" + results.size() + " products found:");
+                for (int i = 0; i < results.size(); i++) {
+                    Product product = results.get(i);
+                    System.out.println((i + 1) + ". " + product.getName() + " - $" + product.getPrice() + " - " + product.getQuantity() + " in stock");
+                }
+
+                int number = getNumberProductSelected();
+
+                if (number < 1 || number > results.size()) {
+                    System.out.println("\nInvalid number. Please try again.");
+                    continue;
+                }
+
+                Product product = results.get(number - 1);
+                int quantity = getProductQuantity();
+                scanner.nextLine();
+
+                if (quantity > product.getQuantity()) {
+                    System.out.println("\nNot enough quantity in stock. Please try again.");
+                    continue;
+                }
+
+                orderDate = getOrderDate();
+                try {
+                    LocalDate.parse(orderDate);
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateFormatException();
+                }
+
+                product.setQuantity(product.getQuantity() - quantity);
+                Product orderedProduct = new Product(product.getName(), product.getDescription(), product.getCategory(), product.getPrice(), quantity, product.getTimesPurchased());
+                products.add(orderedProduct);
+
+                System.out.println("\nProduct added to the order.");
+                String answer = getMoreProductsOption();
+                addMoreProducts = answer.equals("yes");
+            } catch (ProductNotFoundException e) {
+                System.out.println("\nNo products found with that name.");
+            }
+        }
+
+        double total = 0.0;
+        for (Product product : products) {
+            total += product.getPrice() * product.getQuantity();
+        }
+
+        orderSearcher.createOrder(customerName, products, total, orderDate);
+        orderManager = new OrderManager("orders.json");
+        orderManager.addOrder(new Order(customerName,products, total, orderDate));
+        orderManager.saveOrders();
+        System.out.println("\nOrder added successfully.");
     }
 
 
@@ -448,6 +519,13 @@ public class Controller {
         System.out.println("Select an option: \n1. Search by exact value \n2. Search by range");
     }
 
+    public int getTimesPurchased() {
+        System.out.print("Enter the times the product must have been purchased: ");
+        int timesPurchased = scanner.nextInt();
+
+        return timesPurchased;
+    }
+
     public int getMinTimesPurchased() {
         System.out.print("Enter the minimum number of times the product must have been purchased: ");
         int minTimesPurchased = scanner.nextInt();
@@ -467,14 +545,14 @@ public class Controller {
     }
 
     public int getMinQuantityToSearch() {
-        System.out.println("Type the exact quantity value to search: ");
+        System.out.println("Type the quantity value to search: ");
         int minQuantity = scanner.nextInt();
 
         return minQuantity;
     }
 
     public int getMaxQuantityToSearch() {
-        System.out.println("Type the exact quantity value to search: ");
+        System.out.println("Type the quantity value to search: ");
         int maxQuantity = scanner.nextInt();
 
         return maxQuantity;
@@ -495,7 +573,26 @@ public class Controller {
         return number;
     }
 
+    public String getCustomerName() {
+        System.out.print("\nEnter customer name: ");
+        String customerName = scanner.nextLine();
 
+        return customerName;
+    }
+
+    public String getOrderDate() {
+        System.out.print("Enter order date (YYYY-MM-DD): ");
+        String orderDate = scanner.nextLine();
+
+        return orderDate;
+    }
+
+    public String getMoreProductsOption() {
+        System.out.print("\nDo you want to add more products to the order? (yes/no) ");
+        String answer = scanner.nextLine().toLowerCase();
+
+        return answer;
+    }
 
     private int chooseWayPrintProduct() {
         System.out.println("How would you like to order the results?: \n1. Ascending \n2. Descending");
