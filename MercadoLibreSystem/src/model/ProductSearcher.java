@@ -10,11 +10,12 @@ import java.util.List;
 
 public class ProductSearcher {
 
-
+    private ArrayList products;
     private Inventory inventory;
 
     public ProductSearcher(Inventory inventory) {
         this.inventory = inventory;
+
     }
 
     public List<Product> searchProductsByName(String name) throws ProductNotFoundException {
@@ -129,10 +130,12 @@ public class ProductSearcher {
 
     public List<Product> searchProductsByQuantity(int quantity) throws ProductNotFoundException {
         List<Product> productList = inventory.getProducts();
-        Collections.sort(productList, Comparator.comparing(Product::getQuantity));
-        Comparator<Product> productComparator = Comparator.comparing(Product::getQuantity);
-        ProductBinarySearcher<Integer> searcher = new ProductBinarySearcher<>(productList, quantity, productComparator);
-        List<Product> foundProducts = searcher.search();
+        List<Product> foundProducts = new ArrayList<>();
+        for (Product product : productList) {
+            if (product.getQuantity() == quantity) {
+                foundProducts.add(product);
+            }
+        }
         if (foundProducts.isEmpty()) {
             throw new ProductNotFoundException();
         }

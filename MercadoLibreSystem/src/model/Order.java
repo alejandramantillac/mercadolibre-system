@@ -64,14 +64,14 @@ public class Order {
         return productNames;
     }
 
-    /*
-    public String toJson() {
-        return new Gson().toJson(this);
+    @Override
+    public String toString() {
+        return
+                "id=" + id +
+                ", customerName='" + customerName + '\'' +
+                ", products=" + products +
+                ", total=" + total +
+                ", orderDate='" + orderDate + '\'';
     }
 
-    public static Order fromJson(String json) {
-        return new Gson().fromJson(json, Order.class);
-    }
-
-     */
 }

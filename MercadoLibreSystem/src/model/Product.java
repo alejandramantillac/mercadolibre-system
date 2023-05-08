@@ -76,26 +76,15 @@ public class Product implements Comparable<Product> {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
+        return "name='" + name + '\'' +
+                ", description=" + description + '\'' +
                 ", category=" + category +
                 ", price=" + price +
                 ", quantity=" + quantity +
-                ", timesPurchased=" + timesPurchased +
-                '}';
+                ", timesPurchased=" + timesPurchased;
     }
 
-    /*
-    public String toJson() {
-        return new Gson().toJson(this);
-    }
 
-    public static Product fromJson(String json) {
-        return new Gson().fromJson(json, Product.class);
-    }
-
-     */
     @Override
     public int compareTo(Product other) {
         int result = this.name.compareTo(other.name);

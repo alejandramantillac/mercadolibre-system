@@ -17,7 +17,6 @@ import exceptions.*;
 public class Controller {
     private Inventory inventory;
     private List<Order> orders;
-
     private OrderManager orderManager;
     private ProductSearcher productSearcher;
     private OrderSearcher orderSearcher;
@@ -31,6 +30,7 @@ public class Controller {
         this.productSearcher = new ProductSearcher(this.inventory);
         this.orderSearcher = new OrderSearcher(this.orders);
         this.scanner = new Scanner(System.in);
+        inventory.loadProducts();
         orderManager.loadOrders();
     }
 
@@ -48,6 +48,7 @@ public class Controller {
             int timesPurchased = getProductTimesPurchased();
             Product product = new Product(name, description, productCategory, price, quantity, timesPurchased);
             inventory.addProduct(product);
+            inventory.saveProducts();
             System.out.println("Product added successfully.");
         } else {
             System.out.println("\nInvalid category selected. Product not added.");
@@ -78,6 +79,7 @@ public class Controller {
             Product product = results.get(number - 1);
 
             inventory.removeProduct(product);
+            inventory.saveProducts();
             System.out.println("Product removed successfully.");
         } catch (InvalidOptionEnteredException e) {
             System.out.println(e.getMessage());
@@ -98,6 +100,7 @@ public class Controller {
             int quantity = getProductQuantity();
 
             product.setQuantity(product.getQuantity() + quantity);
+            inventory.saveProducts();
             System.out.println("Product " + product.getName() + " quantity increased by " + quantity);
         }
     }
@@ -358,14 +361,15 @@ public class Controller {
     public void addOrder() throws InvalidDateFormatException, ProductNotFoundException{
         String customerName = getCustomerName();
 
-        ArrayList<Product> products = new ArrayList<>();
+        ArrayList<Product> products;products = new ArrayList<>();
         boolean addMoreProducts = true;
         String orderDate = "";
         while (addMoreProducts) {
-            ArrayList<String> productNames = new ArrayList<>();
-            for (Product product : products) {
-                productNames.add(product.getName());
+
+            for (int i=0;i<inventory.getProducts().size();i++) {
+                System.out.println(inventory.getProducts().get(i).getName());
             }
+
             String productName = getProductName();
             try {
                 List<Product> results = productSearcher.searchProductsByName(productName);
@@ -426,6 +430,7 @@ public class Controller {
         orderManager = new OrderManager("orders.json");
         orderManager.addOrder(new Order(customerName,products, total, orderDate));
         orderManager.saveOrders();
+        inventory.saveProducts();
         System.out.println("\nOrder added successfully.");
     }
 

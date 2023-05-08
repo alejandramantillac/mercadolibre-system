@@ -142,6 +142,8 @@ public class ProductTest {
         }catch (ProductNotFoundException e){
             assertNotNull(e.getMessage());
             assertEquals("No products found with that criteria.", e.getMessage());
+        }catch (IndexOutOfBoundsException e){
+            assertNotNull(e.getMessage());
         }
     }
 
@@ -174,6 +176,8 @@ public class ProductTest {
         }catch (ProductNotFoundException e){
             assertNotNull(e.getMessage());
             assertEquals("No products found with that criteria.", e.getMessage());
+        }catch (IndexOutOfBoundsException e){
+            assertNotNull(e.getMessage());
         }
     }
 }

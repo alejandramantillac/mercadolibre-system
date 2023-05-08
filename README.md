@@ -64,12 +64,12 @@ This app also allows users to make purchases or orders, and each time one of the
 **reliability** = 1-0.25 = 0.75 </br>
 **Completeness** = 56/9 = 6.22 </br>
 
-### **Commit 24 - Search orders by Customer name and total implemented in OrderSearcher class**
+### **Commit 24 - Search orders by Customer name and total implemented in OrderSearcher class - 1535a2d6ede9aafbeb9ecbc6b50b54673e4978f0**
 **Error density** = 1/56 = 0.0178 </br>
 **reliability** = 1-0.0178 = 0.9822 </br>
 **Completeness** = 56/9 = 6.22 </br>
 
-### **Commit 25 - Search orders by Date and total with range implemented in OrderSearcher and Controller class**
+### **Commit 25 - Search orders by Date and total with range implemented in OrderSearcher and Controller class - 017c0927d7beaa3f05298d3dc33ab93a7c89c855**
 **Error density** = 0/56 = 0 </br>
 **reliability** = 1-0 = 1 </br>
 **Completeness** = 56/9 = 6.22 </br>

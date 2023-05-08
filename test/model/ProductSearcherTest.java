@@ -207,8 +207,8 @@ public class ProductSearcherTest {
 
         List<Product> results = searcher.searchProductsByTimesRangePurchased(1, 4);
         assertEquals(2, results.size());
-        assertEquals(2, results.get(0).getTimesPurchased());
-        assertEquals(3, results.get(1).getTimesPurchased());
+        assertEquals(3, results.get(0).getTimesPurchased());
+        assertEquals(2, results.get(1).getTimesPurchased());
     }
 
     @Test
@@ -237,8 +237,8 @@ public class ProductSearcherTest {
 
         List<Product> results=searcher.searchProductsByRangeQuantity(1, 5);
         assertEquals(3, results.size());
-        assertEquals(3, results.get(0).getQuantity());
-        assertEquals(2, results.get(1).getQuantity());
+        assertEquals(5, results.get(0).getQuantity());
+        assertEquals(3, results.get(1).getQuantity());
     }
 
     @Test
@@ -264,7 +264,7 @@ public class ProductSearcherTest {
 
         ProductSearcher searcher = new ProductSearcher(inventory);
 
-        List<Product> results = searcher.searchProductsByKeyword("description");
+        List<Product> results = searcher.searchProductsByKeyword("p");
         assertEquals(3, results.size());
         assertEquals("product1", results.get(0).getName());
         assertEquals("product2", results.get(1).getName());

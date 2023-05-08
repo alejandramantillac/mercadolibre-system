@@ -46,7 +46,7 @@ public class Menu {
                     controller.addOrder();
                     break;
                 case 5:
-                    // search orders menu
+                    searchOrdersMenu();
                     break;
                 case 6:
                     controller.increaseProductQuantity();
@@ -63,7 +63,7 @@ public class Menu {
 
     public void showInitialMenu() {
         System.out.println("\n====== MENU ======");
-        System.out.println("1. Add product\n2. Remove product\n3. Search products\n4. Add order\n5. Search orders\n6. Increase product quantity\nEnter an option: ");
+        System.out.println("1. Add product\n2. Remove product\n3. Search products\n4. Add order\n5. Search orders\n6. Increase product quantity\n7. Exit\nEnter an option: ");
     }
 
     public int getOptionMenu() {
