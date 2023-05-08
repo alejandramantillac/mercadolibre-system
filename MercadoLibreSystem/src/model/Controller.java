@@ -507,6 +507,7 @@ public class Controller {
 
     public void searchOrdersByDate() throws OrderNotFoundException {
         String orderDate = getOrderDate();
+        scanner.nextLine();
         List<Order> orders = orderSearcher.searchByOrderDate(orderDate);
         if (orders.isEmpty()) {
             throw new OrderNotFoundException();
