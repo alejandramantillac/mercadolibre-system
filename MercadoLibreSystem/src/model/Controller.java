@@ -25,7 +25,7 @@ public class Controller {
 
     public Controller() {
         this.inventory = new Inventory();
-        this.orderManager = new OrderManager("orders.json");
+        this.orderManager = new OrderManager();
         this.orders = new ArrayList<>();
         this.productSearcher = new ProductSearcher(this.inventory);
         this.orderSearcher = new OrderSearcher(this.orders);
@@ -57,11 +57,15 @@ public class Controller {
 
     // Remove product method
     public void removeProduct() throws InvalidOptionEnteredException, ProductNotFoundException {
+        System.out.println("Please press Enter again.");
+        scanner.nextLine();
+
         String name = getProductName();
         List<Product> results = getProductsByName(name);
 
         if (results.isEmpty()) {
-            throw new ProductNotFoundException();
+            System.out.println("No products found.");
+            return;
         }
 
         System.out.println("\n" + results.size() + " products found:");
@@ -359,6 +363,8 @@ public class Controller {
 
     // Add order
     public void addOrder() throws InvalidDateFormatException, ProductNotFoundException{
+        System.out.println("Please press Enter again.");
+        scanner.nextLine();
         String customerName = getCustomerName();
 
         ArrayList<Product> products;products = new ArrayList<>();
@@ -427,7 +433,7 @@ public class Controller {
         }
 
         orderSearcher.createOrder(customerName, products, total, orderDate);
-        orderManager = new OrderManager("orders.json");
+        orderManager = new OrderManager();
         orderManager.addOrder(new Order(customerName,products, total, orderDate));
         orderManager.saveOrders();
         inventory.saveProducts();
@@ -435,7 +441,10 @@ public class Controller {
     }
 
     public void searchOrdersByCustomerName() {
+        orderManager.loadOrders();
+        List<Order> loadedOrders = orderManager.getOrders();
         String customerName = getCustomerName();
+        System.out.println(customerName);
         List<Order> results = orderSearcher.searchByCustomerName(customerName);
 
         if (results.isEmpty()) {
@@ -453,6 +462,8 @@ public class Controller {
 
 
     public void searchOrdersByTotal() throws OrderNotFoundException {
+        orderManager.loadOrders();
+        List<Order> loadedOrders = orderManager.getOrders();
         showOptionPricesMenu();
         int option = scanner.nextInt();
 
@@ -506,6 +517,8 @@ public class Controller {
     }
 
     public void searchOrdersByDate() throws OrderNotFoundException {
+        orderManager.loadOrders();
+        List<Order> loadedOrders = orderManager.getOrders();
         String orderDate = getOrderDate();
         scanner.nextLine();
         List<Order> orders = orderSearcher.searchByOrderDate(orderDate);

@@ -16,7 +16,7 @@ public class OrderManagerTest {
     public void setupStage1() {
         ArrayList<Product> products1 = new ArrayList<>();
         products1.add(new Product("Product 1", "the description 1", ProductCategory.STATIONERY, 10.0, 5, 1));
-        orderManager = new OrderManager("orders.json");
+        orderManager = new OrderManager();
         orderManager.getOrders().clear();
         orderManager.addOrder(new Order("Alejandra", products1, 50, "06/06/2006"));
 

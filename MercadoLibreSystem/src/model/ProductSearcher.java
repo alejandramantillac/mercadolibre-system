@@ -25,7 +25,7 @@ public class ProductSearcher {
         ProductBinarySearcher<String> searcher = new ProductBinarySearcher<>(productList, name, productComparator);
         List<Product> foundProducts = searcher.search();
         if (foundProducts.isEmpty()) {
-            throw new ProductNotFoundException();
+            System.out.println("No products found.");
         }
         return foundProducts;
     }
@@ -37,7 +37,7 @@ public class ProductSearcher {
         ProductBinarySearcher<Double> searcher = new ProductBinarySearcher<>(productList, price, productComparator);
         List<Product> foundProducts = searcher.search();
         if (foundProducts.isEmpty()) {
-            throw new ProductNotFoundException();
+            System.out.println("No products found.");
         }
         return foundProducts;
     }
@@ -53,7 +53,7 @@ public class ProductSearcher {
         }
         Collections.reverse(filteredList);
         if (filteredList.isEmpty()) {
-            throw new ProductNotFoundException();
+            System.out.println("No products found.");
         }
         return filteredList;
     }
@@ -65,7 +65,7 @@ public class ProductSearcher {
         ProductBinarySearcher<ProductCategory> searcher = new ProductBinarySearcher<>(productList, category, productComparator);
         List<Product> foundProducts = searcher.search();
         if (foundProducts.isEmpty()) {
-            throw new ProductNotFoundException();
+            System.out.println("No products found.");
         }
         return foundProducts;
     }
@@ -77,7 +77,7 @@ public class ProductSearcher {
         ProductBinarySearcher<Integer> searcher = new ProductBinarySearcher<>(productList, timesPurchased, productComparator);
         List<Product> searchResult = searcher.search();
         if (searchResult.isEmpty()) {
-            throw new ProductNotFoundException();
+            System.out.println("No products found.");
         }
         return searchResult;
     }
@@ -99,7 +99,7 @@ public class ProductSearcher {
         }
 
         if (filteredList.isEmpty()) {
-            throw new ProductNotFoundException();
+            System.out.println("No products found.");
         }
 
         Collections.reverse(filteredList);
@@ -122,7 +122,7 @@ public class ProductSearcher {
         filteredList.sort(productComparator);
 
         if (filteredList.isEmpty()) {
-            throw new ProductNotFoundException();
+            System.out.println("No products found.");
         }
 
         return filteredList;
@@ -137,7 +137,7 @@ public class ProductSearcher {
             }
         }
         if (foundProducts.isEmpty()) {
-            throw new ProductNotFoundException();
+            System.out.println("No products found.");
         }
         return foundProducts;
     }
@@ -159,7 +159,7 @@ public class ProductSearcher {
         Collections.reverse(filteredList);
 
         if (filteredList.isEmpty()) {
-            throw new ProductNotFoundException();
+            System.out.println("No products found.");
         }
 
         return filteredList;
